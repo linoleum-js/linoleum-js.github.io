@@ -19,8 +19,13 @@ require([
    */
   var automaticly = function () {
       // by default show local time and weather
-      clock.show();
-      date.show();
+      geo.getLocationLocaly(function (location) {
+        // data is {lat, lon} object
+        timezone.getOffset(location, function (offset) {
+          clock.show(offset);
+          date.show(offset);
+        });
+      });
       // depending on the location (city)
       geo.getCity(function (cityName) {
         // cityName === undefined means that geolocation failed

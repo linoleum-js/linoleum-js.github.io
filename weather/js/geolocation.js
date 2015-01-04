@@ -101,11 +101,20 @@ define(function () {
      * @param {function} callback
      */
     getLocationLocaly = function (callback) {
-      
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude,
+          lon = position.coords.longitude;
+        
+        callback({
+          lat: lat,
+          lon: lon
+        });
+      });
     };
   
   return {
     getCity: getCity,
-    getLocation: getLocation
+    getLocation: getLocation,
+    getLocationLocaly: getLocationLocaly
   };
 });

@@ -1,7 +1,4 @@
 
-/**
- * used only if city is set manually 
- */
 define(function () {
   'use strict';
   
