@@ -1,9 +1,10 @@
-define(function () {
+define([
+  './app'
+], function (app) {
   'use strict';
   
-  var $icon = $('.ww-icon'),
+  var $root = app.$root,
     defaultIconClass = 'ww-icon',
-    $weather = $('.ww-weather'),
       
     /**
      * load json response for specified city
@@ -42,7 +43,7 @@ define(function () {
         
         cssClass = iconsMap[iconName];
       
-      $icon
+      $root.find('.ww-icon')
         .removeClass()
         .addClass(cssClass)
         .addClass(defaultIconClass);
@@ -74,8 +75,9 @@ define(function () {
         .replace('<% min %>', tempHelper(temp - 1))
         .replace('<% max %>', tempHelper(temp + 1));
       
-      $weather.html(html);
-      $weather.removeClass('error');
+      $root.find('.ww-weather')
+        .html(html)
+        .removeClass('error');
     },
     
     /**
@@ -86,13 +88,14 @@ define(function () {
         // city not found
         if (data.cod === '404') {
           // allow user input
-          $weather
-            .addClass('error')
-            .html('City not found');
-          
-          $icon
-            .removeClass()
-            .addClass(defaultIconClass);
+          $root
+            .find('.ww-weather')
+              .addClass('error')
+              .html('City not found')
+              .end()
+            .find('.ww-icon')
+              .removeClass()
+              .addClass(defaultIconClass);
         } else {
           // success
           showIcon(data.weather[0].icon);

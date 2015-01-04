@@ -1,18 +1,17 @@
-define(function () {
+define([
+  './translate',
+  './app'
+], function (translate, app) {
   'use strict';
   
   /**
    * date
    */
-  var $dayOfWeek = $('.ww-day-of-week'),
-    $day = $('.ww-day'),
-    $month = $('.ww-month'),
-    $year = $('.ww-year'),
-      
-    $wrap = $('.ww-date'),
-    
+  var $root = app.$root,
     // offset from UTC. If undefined - using local time
     offset,
+      
+    lang,
 
     /** couple of functions for data formating */
     helpers = {
@@ -54,25 +53,38 @@ define(function () {
     },
 
     updateDate = function () {
-      var date = new Date();
+      var date = new Date(),
+        value;
       
       if (offset !== undefined) {
         date.setTime(new Date().getTime() + offset);
       }
 
-      $dayOfWeek.html(helpers.dayOfWeek(date.getDay()));
-      $day.html(date.getDate());
-      $month.html(helpers.month(date.getMonth()));
-      $year.html(helpers.year(date.getYear()));
-      // show only when loaded
-      $wrap.show();
+      value = [
+        helpers.dayOfWeek(date.getDay()),
+        ',',
+        date.getDate(),
+        helpers.month(date.getMonth()),
+        helpers.year(date.getYear())
+      ].join(' ');
+      
+      translate(value, function (newValue) {
+        $root
+          .find('.ww-date-inner')
+            .html(newValue)
+            .end()
+          .find('.ww-date') // show only when loaded
+            .show();
+      }, lang);
     };
 
   return {
-    show: function (offsetUtc) {
+    show: function (offsetUtc, sourceLang) {
       if (offsetUtc !== undefined) {
         offset = offsetUtc;
       }
+      lang = sourceLang;
+      
       
       updateDate();
       setInterval(updateDate, 1000 * 60);

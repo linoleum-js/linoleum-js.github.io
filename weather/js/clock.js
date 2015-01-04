@@ -1,9 +1,9 @@
-define(function () {
+define([
+  './app'
+], function (app) {
   'use strict';
   
-  var $hours = $('.ww-hours'),
-    $minutes = $('.ww-minutes'),
-    $wrap = $('.ww-time'),
+  var $root = app.$root,
 
     // offset from UTC. If undefined - using local time
     offset,
@@ -24,10 +24,15 @@ define(function () {
         date.setTime(new Date().getTime() + offset);
       }
 
-      $hours.html(date.getHours());
-      $minutes.html(minutesHelper(date.getMinutes()));
-      // show only when loaded
-      $wrap.show();
+      $root
+        .find('.ww-hours')
+          .html(date.getHours())
+          .end()
+        .find('.ww-minutes')
+          .html(minutesHelper(date.getMinutes()))
+          .end()
+        .find('.ww-time') // show only when loaded
+          .show();
     };
   
   return {

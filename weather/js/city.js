@@ -1,76 +1,81 @@
-define(function () {
+define([
+  './translate',
+  './app'
+], function (translate, app) {
   'use strict';
 
-  var $city = $('.ww-city'),
-    $wrap = $('.ww-wrap'),
-    // used as error log
-    $weather = $('.ww-weather'),
-      
+  var $root = app.$root,
+
     // for pub/sub
     onchangeCallbacks = [],
       
     previousValue = '';
   
   // blur on 'missclick'
-  $wrap.on('click', function () {
-    $city.blur();
+  $root.on('click', '.ww-wrap', function () {
+    $root.find('.ww-city').blur();
   });
   
-  $city
-    .on('focus', function () {
+  $root
+    .on('focus', '.ww-city', function () {
       // stretch element for convenience
-      $city.attr('size', 0);
-      previousValue = $city.val();
+      $(this).attr('size', 0);
+      previousValue = $(this).val();
     })
+  
     // avoid blur on click on city field
-    .on('click', function (e) {
+    .on('click', '.ww-city', function (e) {
       e.stopPropagation();
     })
+  
     // avoid blur on empty city field
-    .on('blur', function () {
-      var value = $city.val();
+    .on('blur', '.ww-city', function () {
+      var value = $(this).val();
     
       // empty field
       if (!value) {
         // mozilla hack
         // http://stackoverflow.com/a/7046837
         setTimeout(function () {
-          $city.focus();
+          $(this).focus();
         }, 0);
       }
       // keep correct length (restore after stretch)
-      $city.attr('size', value.length);
+      $(this).attr('size', value.length);
     })
-    .on('keypress', function (e) {
+  
+    .on('keypress', '.ww-city', function (e) {
       if (e.keyCode === 13) {
-        $city.blur();
+        $(this).blur();
       }
     })
-    .on('change', function () {
-      var value = $city.val();
+  
+    .on('change', '.ww-city', function () {
+      var value = $(this).val();
     
       // blur on empty field
       if (!value) {
         // try to restore
         if (previousValue) {
-          $city.val(previousValue);
+          $(this).val(previousValue);
         }
         return;
       }
-    
+      
       onchangeCallbacks.forEach(function (item) {
         item(value);
       });
       
       // keep correct length 
-      $city.attr('size', value.length);
+      $(this).attr('size', value.length);
     });
   
   return {
     show: function (city) {
-      $city.val(city);
-      // keep correct length 
-      $city.attr('size', city.length);
+      $root.find('.ww-city')
+        .val(city)
+        // keep correct length 
+        .attr('size', city.length);
     },
     
     // simple pub/sub
@@ -79,13 +84,14 @@ define(function () {
     },
     
     inviteUserEntry: function () {
-      $weather
-        .html('Geolocation failed.')
-        .addClass('error');
-      
-      $city
-        .focus()
-        .attr('placeholder', 'enter your city');
+      $root
+        .find('.ww-weather')
+          .html('Geolocation failed.')
+          .addClass('error')
+          .end()
+        .find('.ww-city')
+          .focus()
+          .attr('placeholder', 'enter your city');
     }
   };
 });

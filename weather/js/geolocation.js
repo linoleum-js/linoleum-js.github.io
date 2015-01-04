@@ -26,7 +26,7 @@ define(function () {
       var template = [
           'http://maps.googleapis.com/maps/api/geocode/json?',
           'latlng=<% lat %>,<% lon %>',
-          '&sensor=false&language=en'
+          '&sensor=false'
         ].join('');
 
       return template
@@ -90,6 +90,10 @@ define(function () {
       var url = getUrlLocation(city);
       
       $.getJSON(url, function (data) {
+        if (!data.coord) {
+          return;
+        }
+        
         callback({
           lat: data.coord.lat,
           lon: data.coord.lon
