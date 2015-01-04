@@ -1,6 +1,12 @@
 define(function () {
   'use strict';
   
+  /**
+   * translate chunk of text
+   * @param {string} text
+   * @param {function} callback
+   * @param {string} lang - target language
+   */
   return function (text, callback, lang) {
     lang = lang || 'en';
     

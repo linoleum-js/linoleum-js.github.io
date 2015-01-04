@@ -1,20 +1,24 @@
 define([
-  './translate',
-  './app'
-], function (translate, app) {
+  './util/translate'
+], function (translate) {
   'use strict';
   
   /**
-   * date
+   * @constructor
+   * @param {jQuery} $root
    */
-  var $root = app.$root,
-    // offset from UTC. If undefined - using local time
-    offset,
-      
-    lang,
-
-    /** couple of functions for data formating */
-    helpers = {
+  var DateElement = function ($root) {
+    this.$root = $root;
+    // offset from UTC
+    //this.offset;
+    
+    //this.lang;
+    
+    this.$container = $root.find('.ww-date-inner');
+    this.$wrap = $root.find('.ww-date');
+    
+    /** couple of functions for date formating */
+    this.helpers = {
       /** @returns {string} name of the day of week */
       dayOfWeek: function (dayOfWeek) {
         return [
@@ -50,44 +54,68 @@ define([
       year: function (year) {
         return year + 1900;
       }
-    },
-
-    updateDate = function () {
-      var date = new Date(),
-        value;
-      
-      if (offset !== undefined) {
-        date.setTime(new Date().getTime() + offset);
-      }
-
-      value = [
-        helpers.dayOfWeek(date.getDay()),
-        ',',
-        date.getDate(),
-        helpers.month(date.getMonth()),
-        helpers.year(date.getYear())
-      ].join(' ');
-      
-      translate(value, function (newValue) {
-        $root
-          .find('.ww-date-inner')
-            .html(newValue)
-            .end()
-          .find('.ww-date') // show only when loaded
-            .show();
-      }, lang);
     };
-
-  return {
-    show: function (offsetUtc, sourceLang) {
-      if (offsetUtc !== undefined) {
-        offset = offsetUtc;
-      }
-      lang = sourceLang;
-      
-      
-      updateDate();
-      setInterval(updateDate, 1000 * 60);
-    }
   };
+  
+  /**
+   * resize text if necessery
+   */
+  DateElement.prototype.checkFit = function () {
+    var maxWidth = 140,
+      currentWidth = this.$container.width(),
+      fontSize = 12;
+    
+    if (currentWidth > maxWidth) {
+      fontSize = 10;
+    }
+    
+    this.$container.css('font-size', fontSize);
+  };
+  
+  /**
+   * update html
+   */
+  DateElement.prototype.updateDate = function () {
+    var date = new Date(),
+      self = this,
+      value;
+
+    if (this.offset !== undefined) {
+      date.setTime(new Date().getTime() + this.offset);
+    }
+
+    value = [
+      this.helpers.dayOfWeek(date.getDay()),
+      ',',
+      date.getDate(),
+      this.helpers.month(date.getMonth()),
+      this.helpers.year(date.getYear())
+    ].join(' ');
+
+    translate(value, function (newValue) {
+      self.$container.html(newValue);
+      self.$wrap.show(); // show only when loaded
+      
+      self.checkFit();
+    }, this.lang);
+    
+  };
+
+  /**
+   * render html and init setInterval
+   * @param {number} offset - ms
+   * @param {string} lang
+   */
+  DateElement.prototype.show = function (offset, lang) {
+    if (offset !== undefined) {
+      this.offset = offset;
+    }
+    this.lang = lang;
+
+
+    this.updateDate();
+    setInterval($.proxy(this.updateDate, this), 1000 * 60);
+  };
+  
+  return DateElement;
 });

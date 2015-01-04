@@ -1,5 +1,5 @@
 define([
-  './config'
+  './util/config'
 ], function (config) {
   'use strict';
   
@@ -16,32 +16,51 @@ define([
       '  <span class="ww-date-inner"></span>',
       '</div>',
       '<div class="ww-icon"></div>',
-      '<div class="ww-weather"></div>',
+      '<div class="ww-weather nondrag"></div>',
       '<div>',
-      '  <input type="text" class="ww-city" value="" size="0">',
+      '  <input type="text" class="ww-city nondrag" value="" size="0">',
       '</div>'
     ].join('\n'),
-  
-    $root = $('<div class="ww-wrap ' + config.appId + '"></div>'),
       
-    builded = false,
-      
-    build = function (wrap) {
-      var $wrap = $(document.body);
-
-      if (wrap) {
-        $wrap = $(wrap);
-      }
-
-      $root.html(html);
-      $wrap.append($root);
-      
-      builded = true;
+    App = function () {
+      this.id = config.appId();
+      this.$root = $('<div class="ww-wrap ' + this.id + '"></div>');
     };
   
-  return {
-    build: build,
+  /**
+   * generate html for app and init all the necessary fields
+   * @param {string?} wrap
+   * @param {array?} position - [left, top]
+   */
+  App.prototype.build = function (wrap, position) {
+    var $wrap = $(document.body);
+
+    if (wrap) {
+      $wrap = $(wrap);
+    }
+
+    this.$root.html(html);
+    $wrap.append(this.$root);
+
+    this.$root.draggable({
+      scroll: false,
+      cancel: '.nondrag'
+    });
     
-    $root: $root
+    this.$root
+      .on('mousedown', function () {
+        $(this).css('z-index', 1000);
+      })
+      .on('mouseup', function () {
+        $(this).css('z-index', 1);
+      });
+
+    if (position) {
+      this.$root
+        .css('left', position[0])
+        .css('top', position[1]);
+    }
   };
+  
+  return App;
 });

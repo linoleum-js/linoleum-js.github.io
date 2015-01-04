@@ -3,6 +3,10 @@ define(function () {
   'use strict';
   
   return {
+    /**
+     * @param {object} location {lat, lon}
+     * @param {function} callback
+     */
     getOffset: function (location, callback) {
       var tz = new TimeZoneDB();
       

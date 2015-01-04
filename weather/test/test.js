@@ -1,5 +1,5 @@
 require([
-  './weather-widget'
+  '../js/weather-widget'
 ], function (WeatherWidget) {
   'use strict';
   

@@ -6,13 +6,16 @@ body {
 
 .ww-wrap {
   background-color: #336699;
-  min-height: 200px;
+  height: 200px;
   width: 140px;
   text-align: center;
   color: #fff;
   font-family: 'Open Sans Condensed', sans-serif;
   text-shadow: 1px 1px 0 #000;
   box-shadow: 2px 2px 5px #000;
+  
+  position: absolute !important;
+  z-index: 1;
   
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -77,6 +80,13 @@ body {
     font-size: 64px;
     line-height: 84px;
   }
+}
+
+// WEATHER
+
+.ww-weather:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 // CITY
