@@ -1,0 +1,94 @@
+
+
+.playlist-inner {
+  background-color: #2f3842;
+  padding: 5px 0 0 2px;
+  border-radius: 0 0 5px 5px;
+  display: none;
+  counter-reset: item;
+
+  &.active {
+    display: block;
+  }
+
+
+  li {
+    max-width: 314px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    color: #ddd;
+    font-size: 12px;
+    border-radius: 5px;
+    text-shadow: 1px 1px 0 #353d45;
+    -moz-user-select: -moz-text;
+    -o-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+    position: relative;
+    cursor: pointer;
+
+    span:first-child {
+      width: 290px;
+      overflow: hidden;
+      display: inline-block;
+      white-space: nowrap;
+      
+      &::selection {
+        background: #ccc;
+      }
+
+      &::-webkit-selection {
+        background: #ccc;
+      }
+    }
+
+    &::selection {
+      background: #ccc;
+    }
+
+    &::-webkit-selection {
+      background: #ccc;
+    }
+
+    &:hover {
+      box-shadow: inset 2px 2px 5px #1e252c, inset -2px -2px 5px #1e252c;
+    }
+
+    &.current span:first-child {
+      color: #9ed9f2 !important;
+      text-shadow: 1px 1px 1px #aaa;
+    }
+
+    .playlist-action {
+      position: absolute;
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: none;
+      right: 1px;
+      top: 0;
+      padding: 0 10px;
+      display: none;
+    }
+
+    &:hover .playlist-action {
+      display: block;
+    }
+
+    &.current:hover .playlist-action {
+      display: none;
+    }
+
+    &:before {
+      content: counter(item) + ".";
+      counter-increment: item;
+      position: relative;
+      left: -6px;
+      font-size: 10px;
+      color: #aaa;
+      text-shadow: none;
+    }
+  }
+}

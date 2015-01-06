@@ -102,7 +102,10 @@ define(function () {
   City.prototype.onchange = function (callback) {
     this.onchangeCallbacks.push(callback);
   };
-    
+  
+  /**
+   * show error message and invite user
+   */
   City.prototype.inviteUserEntry = function () {
     this.$weather
       .html('Geolocation failed.')

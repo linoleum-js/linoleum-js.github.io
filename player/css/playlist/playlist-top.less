@@ -1,0 +1,96 @@
+@import url(../lib/mixins.less);
+
+.playlist-top {
+  height: 25px;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 25px;
+  background-color: #2f3842;
+  border-bottom: 1px solid #777;
+  border-top: 1px solid #777;
+  display: none;
+  white-space: nowrap;
+
+  &.active {
+    display: block;
+  }
+
+  label[for="files"] {
+    cursor: pointer;
+    text-shadow: 1px 1px 0 #353d45;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #9ed9f2;
+    color: #9ed9f2;
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    padding: 2px 0;
+    width: 85px;
+    border-radius: 5px;
+    .v-gradient(#272f37, #1e252c);
+    text-align: center;
+  }
+
+  select {
+    font-size: 12px;
+    background-color: #ddd;
+    border-radius: 5px;
+    border: 1px solid #9ed9f2;
+    text-shadow: 1px 1px 3px #aaa;
+    display: inline-block;
+    height: 21px;
+    line-height: 21px;
+    width: 170px;
+    position: relative;
+    top: 2px;
+  }
+
+  #create-playlist {
+    width: 86px;
+  }
+
+  .input {
+    background-color: #ddd;
+    .placeholder(#000);
+    font-size: 12px;
+    height: 19px;
+    line-height: 19px;
+    width: 250px;
+    text-indent: 5px;
+    position: relative;
+    top: 2px;
+    border-radius: 5px;
+    border: 1px solid #9ed9f2;
+    text-shadow: 1px 1px 3px #aaa;
+    display: inline-block;
+
+    &::selection {
+      background: #ccc;
+    }
+
+    &::-webkit-selection {
+      background: #ccc;
+    }
+  }
+
+  button,
+  .files-input {
+    .v-gradient(#272f37, #1e252c);
+    font-weight: bold;
+    border: 1px solid #9ed9f2;
+    color: #9ed9f2;
+    text-shadow: 1px 1px 0 #353d45;
+    font-size: 12px;
+    height: 21px;
+    position: relative;
+    top: 2px;
+    border-radius: 5px;
+  }
+
+  #sc-button {
+    width: 90px;
+  }
+}

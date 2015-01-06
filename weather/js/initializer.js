@@ -12,14 +12,26 @@ define([
   /**
    * @constructor
    * @param {jQuery} $root
+   * @param {string=} cityName - name of the city
    */
-  var Initializer = function ($root) {
+  var Initializer = function ($root, cityName) {
     
     this.clock   = new Clock($root);
     this.date    = new DateElement($root);
     this.weather = new Weather($root);
     this.city    = new City($root);
     
+    if (cityName) {
+      this.initManually(cityName);
+    } else {
+      this.initAutomaticly();
+    }
+    
+    this.city.onchange($.proxy(this.initManually, this));
+    
+    $root.find('.ww-reload').on('click', $.proxy(function () {
+      this.initAutomaticly();
+    }, this));
   };
   
   /**
@@ -33,7 +45,6 @@ define([
         
       self = this;
 
-    // depending on the location (city)
     geo.getCity(function (cityName) {
       cityLoaded.resolve(cityName);
     });

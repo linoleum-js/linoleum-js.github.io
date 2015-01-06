@@ -23,6 +23,10 @@ define(function () {
     var self = this;
     
     this.$weather.on('click', function () {
+      if ($(this).hasClass('error')) {
+        return;
+      }
+      
       if (self.currentUnits === 'cel') {
         self.currentUnits = 'far';
         self.celToFar();
@@ -52,6 +56,7 @@ define(function () {
    */
   Weather.prototype.showIcon = function (iconName) {
     /** contains pairs (iconName: cssClass) */
+    /** http://openweathermap.org/weather-conditions */
     var iconsMap = {
         '01d': 'wi-day-sunny',
         '02d': 'wi-day-sunny-overcast',
@@ -62,7 +67,7 @@ define(function () {
         '13d': 'wi-day-snow',
 
         '01n': 'wi-night-clear',
-        '02n': 'wi-night-alt-sunny-overcast',
+        '02n': 'wi-night-cloudy',
         '03n': 'wi-night-partly-cloudy',
         '04n': 'wi-night-alt-cloudy',
         '10n': 'wi-night-alt-showers',

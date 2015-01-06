@@ -1,6 +1,8 @@
 define(function () {
   'use strict';
   /**
+   * exctract the city name from the data
+   *
    * @param {object} data
    * @returns {string} name of the city
   */
@@ -18,6 +20,8 @@ define(function () {
     },
     
     /**
+     * build the url for google maps
+     *
      * @param {number} lat
      * @param {number} lon
      * @returns url of json containing data for lat&lon
@@ -35,6 +39,8 @@ define(function () {
     },
       
     /**
+     * get json and exctract city name
+     *
      * @param {string} url
      * @param {function} callback
      */
@@ -46,6 +52,7 @@ define(function () {
     
     /**
      * get city by current location
+     *
      * @param {function} callback
      */
     getCity = function (callback) {
@@ -64,7 +71,6 @@ define(function () {
       }, function () {
         // Error callback not working in mozilla
         // (https://bugzilla.mozilla.org/show_bug.cgi?id=675533)
-        
         callback();
       });
       
@@ -102,6 +108,8 @@ define(function () {
     },
     
     /**
+     * get current latitude and longitude
+     *
      * @param {function} callback
      */
     getLocationLocaly = function (callback) {

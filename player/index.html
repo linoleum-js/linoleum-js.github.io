@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Abril+Fatface">
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Alegreya+Sans:700'>
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    #spectr {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    
+    body {
+      overflow: hidden;
+    }
+  </style>
+  <canvas id="spectr"></canvas>
+  <div class="player-wrap">
+    <div class="player">
+      <div class="volume-wrap"></div>
+
+      <div class="player-text">
+        <div class="player-time"></div>
+
+        <div class="title"></div>
+      </div>
+
+      <div class="player-position">
+        <span class="repeat-label">Repeat</span>
+        <span class="shuffle-label-active">Shuffle</span>
+        
+        <div class="time-range nondrag"></div>
+      </div>
+
+      <div class="player-bottom">
+        <button type="button" class="pb-button" id="rp">rp</button>
+        <button type="button" class="pb-button" id="sh">sh</button>
+
+        <div class="ctrl-buttons"></div>
+
+        <button type="button" class="pb-button on" id="eq">eq</button>
+        <button type="button" class="pb-button on" id="pl">pl</button>
+      </div>
+    </div>
+
+    <div class="equalizer"></div>
+
+    <div class="playlist">
+      <div class="playlist-tabs">
+        <div class="playlist-tab active">
+          Playlist
+        </div>
+
+        <div class="playlist-tab sound-cloud-tab">
+        </div>
+      </div>
+
+      <div class="playlist-top playlist-top-1 active">
+        <input type="file" class="file-input" hidden multiple="multiple" id="files">
+        <label for="files">browse</label>
+      </div>
+
+      <div class="playlist-top playlist-top-2">
+        <p id="sc-input" class="input nondrag" contenteditable="true" spellcheck="false" data-placeholder="search"></p>
+        <button type="button" id="sc-button">Search</button>
+      </div>
+
+      <ul id="list" class="playlist-inner active playlist-wrap"> </ul>
+
+      <ul id="sc" class="playlist-inner"></ul>
+    </div>
+  </div>
+  <script>
+    window.DEBUG = 1;
+  </script>
+  <script data-main="js/main.js" src="js/lib/require.js"></script>
+</body>
+</html>

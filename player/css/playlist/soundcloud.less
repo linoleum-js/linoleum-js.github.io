@@ -1,0 +1,57 @@
+#sc {
+  .add {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: none;
+    right: 1px;
+    top: 0;
+    padding: 0 10px;
+    display: none;
+  }
+
+  li:hover .add {
+    display: block;
+  }
+
+  .added span:first-child {
+    color: #9ef992;
+  }
+
+  li.added .add {
+    display: none;
+  }
+
+  li:hover .remove {
+    display: none;
+  }
+
+  .added:hover .remove {
+    display: block;
+  }
+
+  .soundcloud-current.added:hover .remove {
+    display: none;
+  }
+  
+  .playlist-action {
+    transform: rotate(45deg);
+    
+    &:hover {
+      color: #5f5;
+    }
+  }
+  
+  .current:hover .playlist-action {
+    display: block;
+  }
+  
+  .sc-added {
+    color: #5f5 !important;
+    text-shadow: none !important;
+  }
+  
+  .sc-added .playlist-action {
+    display: none !important;
+  }
+}

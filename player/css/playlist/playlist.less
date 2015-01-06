@@ -1,0 +1,78 @@
+@import url(../lib/mixins.less);
+
+.playlist {
+  height: 310px;
+  border-radius: 5px;
+  box-shadow: -2px 0 5px #000, 2px 0 5px #000;
+  margin: 2px 0 0;
+  padding: 50px 0 0;
+  position: relative;
+}
+
+.playlist-inner {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 304px;
+
+  &::-webkit-scrollbar {
+    .h-gradient(#1c2329, #2c353f);
+    border: 1px solid #777;
+    border-radius: 0 5px 5px 0;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    .h-gradient(#5c6976, #7c8996);
+    border: 1px solid #aaa;
+    border-radius: 5px;
+  }
+}
+
+.playlist-tabs {
+  height: 25px;
+  width: 100%;
+  background-color: #5c6976;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px 5px 0 0;
+  .row-wrap();
+}
+
+.playlist-tab {
+  .row-item(12px);
+  width: 171px;
+  height: 24px;
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+  color: #fff;
+  line-height: 25px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Alegreya Sans';
+  letter-spacing: 1px;
+  border: 1px solid;
+  border-color: transparent transparent #aaa transparent;
+
+  &.active {
+    border-bottom: none;
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-top: 1px solid #aaa;
+    background-color: #2f3842;
+    border-radius: 5px 5px 0 0;
+    margin: 0;
+    z-index: 1;
+    cursor: default;
+  }
+}
+
+.playlist-tab:nth-child(2):after {
+  content: url(../img/sound-cloud.png);
+  width: 104px;
+  height: 16px;
+  position: relative;
+  top: 3px;
+}

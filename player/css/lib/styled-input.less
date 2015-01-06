@@ -1,0 +1,23 @@
+@import url(mixins.less);
+
+
+// applies to input[type=range] element
+.styled-input () {
+  .v-gradient(#1c2329, #2c353f);
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    background-image: url(../img/position-bar.png);
+    width: 6px;
+    height: 18px;
+  }
+
+  &::-moz-range-thumb {
+    background-image: url(../img/position-bar.png);
+    width: 6px;
+    height: 18px;
+  }
+}

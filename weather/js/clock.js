@@ -51,7 +51,7 @@ define(function () {
     }
 
     this.updateTime();
-    setInterval($.proxy(this.updateTime, this), 1000 * 60);
+    setInterval($.proxy(this.updateTime, this), 1000 * 10);
   };
   
   return Clock;
