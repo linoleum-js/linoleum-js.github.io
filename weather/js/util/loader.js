@@ -1,33 +1,58 @@
 define(function () {
   'use strict';
   
-  var cssString = '<### css ###>',
-    $style = $('.ww-style'),
-    $link,
-    $link1;
+  /* <### css* ###> will be perlaced by real css code (by grunt) */
+  var cssStrings = [
+      '<### css1 ###>'
+    ],
+      
+    links = [
+      'https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.3.2/css/weather-icons.min.css',
+      'http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic-ext'
+    ],
+    
+    // add this class to the all added style and link elements
+    addedClass = 'ww-loaded',
+      
+    $head = $('head'),
+    
+    /**
+     * add <style> element with specified css to the head element
+     *
+     * @param {string} css
+     */
+    addCss = function (css) {
+      var $style = $('<style/>');
+
+      $style
+        .text(css)
+        .addClass('ww-loaded')
+        .appendTo($head);
+    },
+    
+    /**
+     * add <link rel=stylesheet> element with specified href to th e head element
+     *
+     * @param {string} href
+     */
+    addLink = function (href) {
+      var $link = $('<link/>');
+
+      $link
+        .attr('rel', 'stylesheet')
+        .attr('href', href)
+        .addClass('ww-loaded')
+        .appendTo($head);
+    };
   
   // style element is already created
-  if ($style.length) {
+  if ($('.' + addedClass).length) {
+    // avoid a multiple creating
     return;
   }
   
-  $style = $('<style/>');
-  $style.text(cssString);
-  $style.addClass('ww-style');
-  $('head').append($style);
+  cssStrings.forEach(addCss);
   
-  $link = $('<link/>');
-  $link
-    .attr('rel', 'stylesheet')
-    .attr('href', 'https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.3.2/css/weather-icons.min.css');
-  $('head').append($link);
-  
-  $link1 = $('<link/>');
-  $link1
-    .attr('rel', 'stylesheet')
-    .attr('href', 'http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic-ext');
-  $('head').append($link1);
-  
-  
+  links.forEach(addLink);
   
 });

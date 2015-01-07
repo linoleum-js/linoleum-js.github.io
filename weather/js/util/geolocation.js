@@ -1,12 +1,40 @@
 define(function () {
   'use strict';
-  /**
-   * exctract the city name from the data
-   *
-   * @param {object} data
-   * @returns {string} name of the city
-  */
-  var getCityName = function (data) {
+  
+  var
+    getClientIp = function (callback) {
+      var url = 'http://ip4.telize.com/';
+      
+      // not a json
+      $.get(url, function (ip) {
+        callback(ip);
+      });
+    },
+      
+    getCurrentPosition = function (succ, err, native) {
+      if (native) {
+        navigator.geolocation.getCurrentPosition(succ, err);
+      } else {
+//        getClientIp(function (ip) {
+//          var url = 'http://www.geoplugin.net/json.gp?ip=' + ip;
+//          
+//          $.getJSON(url, function (data) {
+//            console.log(data);
+//          });
+//        });
+        
+        $.getJSON('http://www.geoplugin.net/json.gp', function (data) {
+          console.log(data);
+        });
+      }
+    },
+    /**
+     * exctract the city name from the data
+     *
+     * @param {object} data
+     * @returns {string} name of the city
+     */
+    getCityName = function (data) {
       var city;
 
       $.each(data.results, function () {
@@ -62,7 +90,7 @@ define(function () {
       }
       
       // get location
-      navigator.geolocation.getCurrentPosition(function (position) {
+      getCurrentPosition(function (position) {
         var lat = position.coords.latitude,
           lon = position.coords.longitude,
           url = getUrlCity(lat, lon);
@@ -72,7 +100,7 @@ define(function () {
         // Error callback not working in mozilla
         // (https://bugzilla.mozilla.org/show_bug.cgi?id=675533)
         callback();
-      });
+      }, false);
       
     },
       
@@ -88,7 +116,7 @@ define(function () {
     },
       
     /**
-     * wise-versa - get location by cityname
+     * wise-versa - get location by the name of the city
      * @param {string} city
      * @param {function} callback
      */
@@ -113,7 +141,7 @@ define(function () {
      * @param {function} callback
      */
     getLocationLocaly = function (callback) {
-      navigator.geolocation.getCurrentPosition(function (position) {
+      getCurrentPosition(function (position) {
         var lat = position.coords.latitude,
           lon = position.coords.longitude;
         
@@ -121,7 +149,9 @@ define(function () {
           lat: lat,
           lon: lon
         });
-      });
+      }, function () {
+        callback({});
+      }, false);
     };
   
   return {
