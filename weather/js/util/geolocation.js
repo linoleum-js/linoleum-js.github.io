@@ -8,10 +8,10 @@ define([
      * locate user using native geolocation or geoplugin api
      *
      * @param {function} callback
-     * @param {boolean=} native - if true - using native geolocation
+     * @param {boolean=} useNative - if true - using native geolocation
      */
-    getCurrentPosition = function (callback, native) {
-      if (native) {
+    getCurrentPosition = function (callback, useNative) {
+      if (useNative) {
         navigator.geolocation.getCurrentPosition(callback);
       } else {
         services.position(function (data) {
