@@ -1,19 +1,21 @@
 define(function () {
   'use strict';
   
-  /**
-   * @constructor
-   * @param {jQuery} $root
-   */
-  var Clock = function ($root) {
-    this.$root = $root;
-    // offset from UTC
-    // this.offset;
-    
-    this.$hours = $root.find('.ww-hours');
-    this.$minutes = $root.find('.ww-minutes');
-    this.$wrap = $root.find('.ww-time');
-  };
+  
+  var
+    /**
+     * @constructor
+     * @param {jQuery} $root
+     */
+    Clock = function ($root) {
+      this.$root = $root;
+      // offset from UTC
+      // this.offset;
+
+      this.$hours = $root.find('.ww-hours');
+      this.$minutes = $root.find('.ww-minutes');
+      this.$wrap = $root.find('.ww-time');
+    };
 
   /**
    * @returns {string|number} minutes in MM format

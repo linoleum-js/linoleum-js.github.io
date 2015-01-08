@@ -1,8 +1,9 @@
 define(function () {
   'use strict';
   
-  /* <### css* ###> will be perlaced by real css code (by grunt) */
-  var cssStrings = [
+  var
+    // <### css* ###> will be perlaced by real css code (by grunt)
+    cssStrings = [
       '<### css1 ###>'
     ],
       
@@ -22,7 +23,8 @@ define(function () {
      * @param {string} css
      */
     addCss = function (css) {
-      var $style = $('<style/>');
+      var
+        $style = $('<style/>');
 
       $style
         .text(css)
@@ -36,7 +38,8 @@ define(function () {
      * @param {string} href
      */
     addLink = function (href) {
-      var $link = $('<link/>');
+      var
+        $link = $('<link/>');
 
       $link
         .attr('rel', 'stylesheet')

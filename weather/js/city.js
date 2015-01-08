@@ -1,28 +1,30 @@
 define(function () {
   'use strict';
 
-  /**
-   * @constructor
-   * @param {jQuery} $root
-   */
-  var City = function ($root) {
-    this.$root = $root;
-    // for pub/sub
-    this.onchangeCallbacks = [];
+  var
+    /**
+     * @constructor
+     * @param {jQuery} $root
+     */
+    City = function ($root) {
+      this.$root = $root;
+      // for pub/sub
+      this.onchangeCallbacks = [];
 
-    this.previousValue = '';
-    
-    this.$city = $root.find('.ww-city');
-    this.$weather = $root.find('.ww-weather');
-    
-    this.initListners();
-  };
+      this.previousValue = '';
+
+      this.$city = $root.find('.ww-city');
+      this.$weather = $root.find('.ww-weather');
+
+      this.initListners();
+    };
   
   /**
    * bind all the events
    */
   City.prototype.initListners = function () {
-    var self = this;
+    var
+      self = this;
     
     // blur on 'missclick'
     self.$root.on('click', function () {
@@ -43,7 +45,8 @@ define(function () {
 
       // avoid blur on empty city field
       .on('blur', function () {
-        var value = $(this).val();
+        var
+          value = $(this).val();
 
         // empty field
         if (!value) {
@@ -64,7 +67,8 @@ define(function () {
       })
 
       .on('change', function () {
-        var value = $(this).val();
+        var
+          value = $(this).val();
 
         // blur on empty field
         if (!value) {

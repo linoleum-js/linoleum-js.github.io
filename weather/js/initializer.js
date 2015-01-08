@@ -1,7 +1,7 @@
 define([
   './clock',
-  './date',
-  './weather',
+  './date/date',
+  './weather/weather',
   './city',
   './util/geolocation',
   './util/timezone',
@@ -9,47 +9,48 @@ define([
 ], function (Clock, DateElement, Weather, City, geo, timezone, translate) {
   'use strict';
   
-  /**
-   * @constructor
-   * @param {jQuery} $root
-   * @param {string=} cityName - name of the city
-   */
-  var Initializer = function ($root, cityName) {
-    
-    this.clock   = new Clock($root);
-    this.date    = new DateElement($root);
-    this.weather = new Weather($root);
-    this.city    = new City($root);
-    
-    if (cityName) {
-      this.initManually(cityName);
-    } else {
-      this.initAutomaticly();
-    }
-    
-    this.city.onchange($.proxy(this.initManually, this));
-    
-    $root.find('.ww-reload').on('click', $.proxy(function () {
-      this.initAutomaticly();
-    }, this));
-  };
+  var
+    /**
+     * @constructor
+     * @param {jQuery} $root
+     * @param {string=} cityName - name of the city
+     */
+    Initializer = function ($root, cityName) {
+
+      this.clock   = new Clock($root);
+      this.date    = new DateElement($root);
+      this.weather = new Weather($root);
+      this.city    = new City($root);
+
+      if (cityName) {
+        this.initManually(cityName);
+      } else {
+        this.initAutomaticly();
+      }
+
+      this.city.onchange($.proxy(this.initManually, this));
+
+      $root.find('.ww-reload').on('click', $.proxy(function () {
+        this.initAutomaticly();
+      }, this));
+    };
   
   /**
-   * init by geolocation api
+   * init by current use position
    */
   Initializer.prototype.initAutomaticly = function () {
-    var cityLoaded = $.Deferred(),
+    var
       translated   = $.Deferred(),
       located      = $.Deferred(),
       offsetLoaded = $.Deferred(),
         
       self = this;
 
-    geo.getCity(function (cityName) {
-      cityLoaded.resolve(cityName);
+    geo.getCity(function (cityName, position) {
+      located.resolve(cityName, position);
     });
 
-    cityLoaded.then(function (cityName) {
+    located.then(function (cityName, position) {
       // undefined means that geolocation failed
       if (!cityName) {
         return self.city.inviteUserEntry();
@@ -63,21 +64,10 @@ define([
       });
     });
 
-    // by default show local time and weather
-    geo.getLocationLocaly(function (location) {
-      located.resolve(location);
-    });
-
-    located.then(function (location) {
-      // data is {lat, lon} object
-      timezone.getOffset(location, function (offset) {
-        offsetLoaded.resolve(offset);
-      });
-    });
-
-    $.when(offsetLoaded, translated).then(function (offset, lang) {
-      self.clock.show(offset);
-      self.date.show(offset, lang[1]);
+    this.initDataAndClock({
+      located: located,
+      offsetLoaded: offsetLoaded,
+      translated: translated
     });
   };
 
@@ -86,7 +76,8 @@ define([
    * @param {string} cityName
    */
   Initializer.prototype.initManually = function (cityName) {
-    var translated = $.Deferred(),
+    var
+      translated   = $.Deferred(),
       located      = $.Deferred(),
       offsetLoaded = $.Deferred(),
         
@@ -101,23 +92,46 @@ define([
     translated.then(function (enCityName) {
       self.weather.show(enCityName);
 
-      geo.getLocation(enCityName, function (location) {
-        located.resolve(location);
+      geo.getPositionByCity(enCityName, function (cityName, position) {
+        located.resolve(cityName, position);
       });
     });
-
-    located.then(function (location) {
-      // data is {lat, lon} object
-      timezone.getOffset(location, function (offset) {
-        offsetLoaded.resolve(offset);
+    
+    this.initDataAndClock({
+      located: located,
+      offsetLoaded: offsetLoaded,
+      translated: translated
+    });
+  };
+  
+  /**
+   * @param {$.Deferred} param.located
+   * @param {$.Deferred} param.offsetLoaded
+   * @param {$.Deferred} param.translated
+   */
+  Initializer.prototype.initDataAndClock = function (param) {
+    var
+      self = this;
+    
+    param.located.then(function (cityName, position) {
+      // data is { coords: {latitude, longitude} } object
+      timezone.getOffset(position, function (offset) {
+        param.offsetLoaded.resolve(offset);
       });
     });
-
-    $.when(offsetLoaded, translated).then(function (offset, lang) {
+    
+    param.offsetLoaded.then(function (offset) {
       self.clock.show(offset);
+    });
+
+    $.when(
+      param.offsetLoaded,
+      param.translated
+    ).then(function (offset, lang) {
       self.date.show(offset, lang[1]);
     });
   };
+  
   
   return Initializer;
 });

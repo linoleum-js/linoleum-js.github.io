@@ -1,26 +1,31 @@
-define(function () {
+define([
+  './weather-iconmap',
+  '../util/services'
+], function (iconMap, services) {
   'use strict';
   
-  /**
-   * @constructor
-   * @param {jQuery} $root
-   */
-  var Weather = function ($root) {
-    this.$root = $root;
-    this.defaultIconClass = 'ww-icon';
-    
-    this.$weather = $root.find('.ww-weather');
-    this.$icon = $root.find('.ww-icon');
-    this.currentUnits = 'cel';
-    
-    this.initListeners();
-  };
+  var
+    /**
+     * @constructor
+     * @param {jQuery} $root
+     */
+    Weather = function ($root) {
+      this.$root = $root;
+      this.defaultIconClass = 'ww-icon';
+
+      this.$weather = $root.find('.ww-weather');
+      this.$icon = $root.find('.ww-icon');
+      this.currentUnits = 'cel';
+
+      this.initListeners();
+    };
   
   /**
-   * bind all events
+   * bind all the events
    */
   Weather.prototype.initListeners = function () {
-    var self = this;
+    var
+      self = this;
     
     this.$weather.on('click', function () {
       if ($(this).hasClass('error')) {
@@ -38,44 +43,13 @@ define(function () {
       }
     });
   };
-      
-  /**
-   * load json response for specified city
-   * @param {string} city - city
-   * @param {function} callback
-   */
-  Weather.prototype.getJson = function (city, callback) {
-    var baseUrl = 'http://api.openweathermap.org/data/2.5/weather',
-      url = baseUrl + '?q=' + city;
-
-    $.getJSON(url, callback);
-  };
     
   /**
    * @param {string} iconName
    */
   Weather.prototype.showIcon = function (iconName) {
-    /** contains pairs (iconName: cssClass) */
-    /** http://openweathermap.org/weather-conditions */
-    var iconsMap = {
-        '01d': 'wi-day-sunny',
-        '02d': 'wi-day-sunny-overcast',
-        '03d': 'wi-cloud',
-        '04d': 'wi-cloudy',
-        '10d': 'wi-day-showers',
-        '11d': 'wi-day-lightning',
-        '13d': 'wi-day-snow',
-
-        '01n': 'wi-night-clear',
-        '02n': 'wi-night-cloudy',
-        '03n': 'wi-night-partly-cloudy',
-        '04n': 'wi-night-alt-cloudy',
-        '10n': 'wi-night-alt-showers',
-        '11n': 'wi-night-alt-lightning',
-        '13n': 'wi-night-alt-snow'
-      },
-
-      cssClass = iconsMap[iconName];
+    var
+      cssClass = iconMap[iconName];
 
     this.$icon
       .removeClass()
@@ -94,14 +68,14 @@ define(function () {
    * convert temperature to farenheit
    */
   Weather.prototype.celToFar = function () {
-    this.temp = this.temp * 5 / 9 + 32;
+    this.temp = this.temp * 9 / 5 + 32;
   };
       
   /**
    * convert temperature to celsius
    */
   Weather.prototype.farToCel = function () {
-    this.temp = (this.temp - 32) * 9 / 5;
+    this.temp = (this.temp - 32) * 5 / 9;
   };
   
   /**
@@ -110,7 +84,8 @@ define(function () {
    * @param {string} symbol
    */
   Weather.prototype.renderTemp = function (min, max, symbol) {
-    var template = '<% min %>..<% max %> ' + symbol,
+    var
+      template = '<% min %>..<% max %> ' + symbol,
       html,
 
       tempHelper = function (temp) {
@@ -146,9 +121,10 @@ define(function () {
    * load json and show
    */
   Weather.prototype.show = function (city) {
-    var self = this;
+    var
+      self = this;
     
-    this.getJson(city, function (data) {
+    services.weather(city, function (data) {
       // city not found
       if (data.cod === '404') {
         // allow user input

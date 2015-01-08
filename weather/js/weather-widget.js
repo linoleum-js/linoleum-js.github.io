@@ -1,27 +1,12 @@
 define([
   './initializer',
+  './util/template',
   './lib/google-maps',
   './lib/timezone-db'
-], function (Initializer) {
+], function (Initializer, template) {
   'use strict';
 
-  var template = [
-      '<button class="ww-reload nondrag" title="reload">⟲</button>',
-      '<div class="ww-time">',
-      '  <span class="ww-hours"></span>',
-      '  <span class="ww-colon">:</span>',
-      '  <span class="ww-minutes"></span>',
-      '</div>',
-      '<div class="ww-date">',
-      '  <span class="ww-date-inner"></span>',
-      '</div>',
-      '<div class="ww-icon"></div>',
-      '<div class="ww-weather nondrag"></div>',
-      '<div>',
-      '  <input type="text" class="ww-city nondrag" value="" size="0">',
-      '</div>'
-    ].join('\n'),
-    
+  var
     /**
      * @constructor
      * @param {object=} args
@@ -35,7 +20,6 @@ define([
       this.build(args.wrap, args.position);
       
       this.ini = new Initializer(this.$root, args.city);
-      
     };
   
   /**
@@ -44,20 +28,20 @@ define([
    * @param {array=} position - [left, top]
    */
   WeatherWidget.prototype.build = function (wrap, position) {
-    var $wrap = $(document.body);
-    
-    this.$root = $('<div class="ww-wrap"></div>');
+    var
+      $wrap = $(document.body);
 
     if (wrap) {
       $wrap = $(wrap);
     }
-
+    
+    this.$root = $('<div class="ww-wrap"></div>');
     this.$root.html(template);
     $wrap.append(this.$root);
 
     this.$root.draggable({
       scroll: false,
-      cancel: '.nondrag'
+      cancel: '.ww-nondrag'
     });
     
     // on the top of document while dragging

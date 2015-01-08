@@ -3,18 +3,20 @@ define(function () {
   
   return {
     /**
-     * @param {object} location {lat, lon}
+     * @param {object} location { coords: { latitude, longitude } }
      * @param {function} callback
      */
-    getOffset: function (location, callback) {
-      var tz = new TimeZoneDB();
+    getOffset: function (position, callback) {
+      var
+        tz = new TimeZoneDB();
       
       tz.getJSON({
         key: "SDTZPFEA2DIF",
-        lat: location.lat,
-        lng: location.lon
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
       }, function (data) {
-        var time = (data.timestamp + (new Date()).getTimezoneOffset() * 60) * 1000,
+        var
+          time = (data.timestamp + (new Date()).getTimezoneOffset() * 60) * 1000,
           offset = time - (new Date()).getTime();
         
         callback(offset);
