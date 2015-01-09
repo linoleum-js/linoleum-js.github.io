@@ -7,6 +7,10 @@ define(function () {
      * @param {function} callback
      */
     getOffset: function (position, callback) {
+      if (!position.coords) {
+        return;
+      }
+      
       var
         tz = new TimeZoneDB();
       

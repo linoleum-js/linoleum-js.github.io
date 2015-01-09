@@ -89,6 +89,11 @@ define(function () {
         ].join('');
       
       $.getJSON(url, function (data) {
+        if (data.cod === '404') {
+          callback(city, data);
+          return;
+        }
+        
         callback(city, {
           coords: {
             latitude: data.coord.lat,

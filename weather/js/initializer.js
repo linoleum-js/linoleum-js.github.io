@@ -5,7 +5,7 @@ define([
   './city',
   './util/geolocation',
   './util/timezone',
-  './util/translate'
+  './util/translate/translate'
 ], function (Clock, DateElement, Weather, City, geo, timezone, translate) {
   'use strict';
   
