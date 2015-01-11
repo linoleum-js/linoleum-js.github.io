@@ -1,0 +1,37 @@
+.social a,
+.header-menu a,
+.header-menu li,
+.header-menu span,
+.slider-preview-list,
+.ctrl-bottom li,
+.content,
+.line-left,
+.line-right,
+.read-more,
+.popular-comments,
+.test-item,
+.garage-item,
+.sidebar,
+.tab {
+	display: inline;
+	zoom: 1;
+}
+
+.header-menu {
+	text-justify: newspaper;
+}
+
+.header-menu-list {
+	behavior: url(border-radius.htc);
+}
+
+.header-menu span {
+	line-height: 1;
+}
+
+.slider-item-desc,
+.slider-item-meta,
+.garage-item-desc  {
+	background-color: #000;
+	filter: alpha(Opacity=70);
+}

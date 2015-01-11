@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="css/style.css">
+		<title></title>
+	</head>
+	<body>
+		<div class="wrap page">
+			<header class="header">
+				<h1 class="logo">
+					<a href="#">
+						<span>Доставим</span>
+						<span class="logo-number">73</span>
+						<p class="logo-under">Служба доставки в Ульяновске</p>
+					</a>
+				</h1>
+
+				<div class="phone">
+					<h4>Наши телефоны:</h4>
+					<p class="phone-number"><span>8(937)</span> 454-82-58</p>
+					<p class="phone-number"><span>8(929)</span> 799-37-29</p>
+					<p class="phone-under">Круглосуточно!</p>
+				</div><!--phone-->
+
+				<ul class="header-menu">
+					<li><a href="#">Главная</a></li>
+					<li><a href="#" class="header-menu-active">Доставить</a></li>
+					<li><a href="#">Тарифы</a></li>
+					<li><a href="#">О нас</a></li>
+					<li><a href="#">Отзывы</a></li>
+				</ul>
+			</header>
+
+			<div class="content">
+				<div class="content-top">
+					<h2>Почему мы?</h2>
+					<div class="social">
+						Расскажите о нас друзьям — 
+						<a href="#" class="icon1"></a>
+						<a href="#" class="icon2"></a>
+						<a href="#" class="icon3"></a>
+						<a href="#" class="icon4"></a>
+						<a href="#" class="icon5"></a>
+					</div>
+					<div class="items">
+						<div class="content-item item1">
+							<img src="img/img1.jpg" alt="img">
+							<h3>Лучшая клиенто- риентированность</h3>
+							<p>Вы выбираете какой товар вам нужен и где его покупать. Вы получаете самое хорошее обслуживание.
+							Учитываются любые ваши пожелания и предложенияю</p>
+						</div>
+						<div class="content-item item2">
+							<img src="img/img2.jpg" alt="img">
+							<h3>Скорость доставки</h3>
+							<p>Тариф срочный означает, что свой товар вы получите в течение 40 минут после заказа. Даже если
+							выбран другой тариф, товар вы получите в течение дня.</p>
+						</div>
+						<div class="content-item item3">
+							<img src="img/img3.jpg" alt="img">
+							<h3>Самые низкие и фиксированные цены</h3>
+							<p>Мы предоставляем вам варианты стоимости доставки. <a href="#">Множество тарифов</a> даёт вам право выбора.
+							Для постоянных клиентов есть особенные условия.</p>
+						</div>
+					</div><!--items-->
+				</div><!--content-top-->
+
+				<div class="content-left">
+					<div class="form-wrap">
+						<h2>Онлайн заявка</h2>
+						<form method="post" action="send_email.php" class="order-form" id="order-form">
+							<label for="name">
+								<span>Ваше имя</span>
+								<input type="text" name="name" id="name" placeholder="Иван Петрович">
+							</label>
+							<label for="addr">
+								<span>Адрес доставки</span>
+								<input type="text" name="addr" id="addr" placeholder="Ул. Мира. д. 4. кв. 52">
+							</label>
+							<label for="code">
+								<span>Код домофона<br><em>(если есть)</em></span>
+								<input type="text" name="code" id="code">
+							</label>
+							<label for="tel">
+								<span>Телефон</span>
+								<input type="text" name="tel" id="tel" placeholder="8-495-444-23-71">
+							</label>
+							<label for="email">
+								<span>Электронная почта<br> <em>(не обязательно)</em></span>
+								<input type="email" name="email" id="email" placeholder="mail.4522@mail.ru">
+							</label>
+							<label for="message">
+								<span>Что требуется купить</em></span>
+								<textarea type="text" name="message" id="message" placeholder="Молоко, кефир, сметану, 2 батона хлеба ящик пива “Балтика 9”, Пачку памперсов Зубную щетку"></textarea>
+							</label>
+							<label for="wishes">
+								<span>Пожелания<br><em>(Не обязательно)</em></span>
+								<input type="text" name="wishes" id="wishes" placeholder="Всё купить в магазине “Перекрёсток”">
+							</label>
+							<label for="tariff">
+								<span>Тариф</span>
+								<select name="tariff" id="tariff">
+									<option selected>Срочный</option>
+									<option>Стандарт</option>
+									<option>Эконом</option>
+								</select>
+							</label>
+							<label for="time">
+								<span>Желаемое время<br> доставки</span>
+								<input type="text" name="time" id="time" placeholder="19:50">
+							</label>
+
+							<div class="form-bottom">
+								<i>Если возникли сложности всегда можно позвонить</i>
+								<p>Для районов: Центр, Север, Пески Тел. 8-937-454-82-58 
+								Для районов: Ближнее, дальнее Засвияжье, Киндяковка Тел. 8-929-799-37-29</p>
+							</div>
+							<button type="button" id="send">Отправить заявку</button>
+						</form><!--order-form-->
+					</div><!--form-wrap-->
+
+					<div class="news">
+						<h2>Последние новости</h2>
+						<a href="#" class="all-link">Все новости »</a>
+						<div class="news-items">
+							<div class="news-item">
+								<div class="date">
+									<strong>14</strong><br>
+									мая
+								</div><!--date-->
+								<p class="news-text">При покупке газонокосилки сервисный набор в подарок! Купите до 28 июня
+								газонокосилку и получите сервисный набор в подарок!</p><!--news-text-->
+							</div><!--news-item-->
+							<div class="news-item">
+								<div class="date">
+									<strong>27</strong><br>
+									апр
+								</div><!--date-->
+								<p class="news-text">График работы ПВЗ во время майских праздников. В праздничные дни график
+								работы пунктов выдачи заказов изменится</p><!--news-text-->
+							</div><!--news-item-->
+						</div><!--news-items-->
+					</div><!--news-->
+				</div><!--content-left-->
+
+				<div class="content-right">
+					<h2>Тарифы</h2>
+					<a href="#" class="all-link">Все тарифы »</a>
+					<div class="tariff-item">
+						<div class="tariff-name">
+							Срочный<br> <em>(до 40 минут)</em>
+						</div>
+						<div class="tariff-price">— 150 <span>руб</span></div>
+					</div><!--tariff-item-->
+					<div class="tariff-item">
+						<div class="tariff-name">
+							Стандарт<br> <em>(до 3 минут)</em>
+						</div>
+						<div class="tariff-price">— 100 <span>руб</span></div>
+					</div><!--tariff-item-->
+					<div class="tariff-item">
+						<div class="tariff-name">
+							Эконом<br> <em>(в течение дня)</em>
+						</div>
+						<div class="tariff-price">— 65 <span>руб</span></div>
+					</div><!--tariff-item-->
+
+					<div class="reviews">
+						<h2>Отзывы наших клиентов</h2>
+						<div class="comment">
+							<div class="comment-author">Татьяна Ивановна</div>
+							<div class="comment-date">23.05.2013</div>
+							<p>Немноголюдно, есть игровая площадка для маленьких детей, достаточно много аттракционов,
+							в том числе для маленьких детей, вольеры с животными, красиво оформлен, бесплатный вход.</p>
+						</div><!--comment-->
+						<div class="comment">
+							<div class="comment-author">Татьяна Ивановна</div>
+							<div class="comment-date">23.05.2013</div>
+							<p>Немноголюдно, есть игровая площадка для маленьких детей, достаточно много аттракционов,
+							в том числе для маленьких детей, вольеры с животными, красиво оформлен, бесплатный вход.</p>
+						</div><!--comment-->
+
+						<a href="#" class="all-rewiews">Все отзывы »</a>
+					</div><!--reviews-->
+
+					<div class="vk-widget">
+						<img src="img/vk-widget.png" alt="img">
+					</div>
+				</div><!--content-right-->
+			</div><!--content-->
+			<div class="spacer"></div>
+		</div><!--wrap, page-->
+
+		<div class="wrap">
+			<footer class="footer">
+				<p class="copy">© 2013 «Доставим 73». Все права защищены</p>
+				<ul class="footer-menu">
+					<li><a href="#">Главная</a>|</li>
+					<li><a href="#" class="footer-menu-active">Доставить</a>|</li>
+					<li><a href="#">Тарифы</a>|</li>
+					<li><a href="#">О нас</a>|</li>
+					<li><a href="#">Отзывы</a></li>
+				</ul>
+			</footer>
+		</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+		<script src="js/script.js"></script>
+	</body>
+</html>
