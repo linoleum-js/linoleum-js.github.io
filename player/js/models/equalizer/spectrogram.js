@@ -6,7 +6,7 @@ define([
   var analyser = context.createAnalyser(),
     Spectrogram = AudioNode.extend({
       initialize: function () {
-        analyser.fftSize = 2048;
+        analyser.fftSize = 1024;
         
         this.set({ node: analyser });
       },

@@ -50,10 +50,6 @@ define([
       if (!this.get('audio')) {
         audio = new Audio();
         audio.src = this.get('url');
-        audio.addEventListener('canplay', function () {
-          console.log('CANPLAY');
-          audio.play();
-        }, false);
         
         equalizer.equalize(audio);
         

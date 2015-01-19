@@ -106,6 +106,10 @@ define([
     
     stop: function () {
       if (!this.get('isPlaying')) {
+        if (window.DEBUG) {
+          console.log('Trying to stop while not playing.');
+        }
+        
         return;
       }
       
