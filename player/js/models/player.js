@@ -14,7 +14,8 @@ define([
     defaults: function () {
       return {
         isPlaying: false,
-        title: '—'
+        title: '—',
+        fromSc: false
       };
     },
     
@@ -52,6 +53,7 @@ define([
         });
 
         self.set({ isPlaying: true });
+        self.set({ fromSc: true });
       }).onpause(function () {
         self.togglePause();
       });
@@ -74,6 +76,11 @@ define([
       }
 
       if (this.get('playlist').isEmpty()) {
+        return;
+      }
+      
+      if (this.get('fromSc')) {
+        this.get('current').play();
         return;
       }
       
