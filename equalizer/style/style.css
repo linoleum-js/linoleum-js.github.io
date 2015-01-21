@@ -1,0 +1,17 @@
+audio,
+.eq-wrap {
+  display: inline-block;
+}
+
+input[type="range"] {
+  transform: rotate(-90deg);
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  margin: 100px -70px 0 0;
+}
+
+input[type="file"] {
+  display: block;
+  width: 300px;
+}
